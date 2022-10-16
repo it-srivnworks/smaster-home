@@ -6,10 +6,12 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.srivn.works.smaster.smasterhome.exception.DataNotFoundException;
 import com.srivn.works.smaster.smasterhome.exception.DuplicateDataException;
+import com.srivn.works.smaster.smasterhome.model.SmasterMsg;
 import com.srivn.works.smaster.smasterhome.model.UserInfo;
 import com.srivn.works.smaster.smasterhome.repo.UserRepository;
 import com.srivn.works.smaster.smasterhome.repo.entity.UserInfoEn;
@@ -22,12 +24,12 @@ public class UsersService {
 
 	private ModelMapper modelMapper = new ModelMapper();
 
-	public String addNewUser(UserInfo userInfo) {
+	public SmasterMsg addNewUser(UserInfo userInfo) {
 
 		if (userRepository.findByUserEmail(userInfo.getUserEmail()).isEmpty()) {
 			UserInfoEn en = modelMapper.map(userInfo, UserInfoEn.class);
 			userRepository.save(en);
-			return "SUCCESS : User created!";
+			return SmasterMsg.builder().statusCode(HttpStatus.ACCEPTED.value()).message("SUCCESS : User created!").build();
 		} else {
 			throw new DuplicateDataException("The field already exist !");
 		}
