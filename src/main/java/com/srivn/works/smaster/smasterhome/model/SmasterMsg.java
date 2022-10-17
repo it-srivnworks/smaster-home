@@ -1,6 +1,6 @@
 package com.srivn.works.smaster.smasterhome.model;
 
-import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,5 +11,6 @@ public class SmasterMsg {
 
 	private int statusCode;
 	private String message;
+	private List<?> data;
 
 }

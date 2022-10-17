@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.srivn.works.smaster.smasterhome.model.SmasterMsg;
 import com.srivn.works.smaster.smasterhome.model.UserInfo;
 import com.srivn.works.smaster.smasterhome.repo.UserRepository;
 import com.srivn.works.smaster.smasterhome.services.UsersService;
@@ -60,7 +62,7 @@ class UsersControlTest {
 	@CrossOrigin
 	@PostMapping(value = "/addNewUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	final void test_AddNewUser_YES() throws Exception {
-		when(usersService.addNewUser(sampleDTODup)).thenReturn("SUCCESS : User created!");
+		when(usersService.addNewUser(sampleDTODup)).thenReturn(SmasterMsg.builder().statusCode(HttpStatus.ACCEPTED.value()).message("SUCCESS : User created!").build());
 		String url = "/users/addNewUser";
 		String inputData = mapToJson(sampleDTONew);
 
@@ -77,7 +79,6 @@ class UsersControlTest {
 	final void test_GetAllUserInfo() throws Exception {
 		when(usersService.getAllUserInfo()).thenReturn(List.of(sampleDTODup, sampleDTONew));
 		String url = "/users/getAllUserInfo";
-
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url).accept(MediaType.APPLICATION_JSON_VALUE))
 				.andReturn();
 		assertEquals(mvcResult.getResponse().getStatus(), 200);
