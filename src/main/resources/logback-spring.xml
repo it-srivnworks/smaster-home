@@ -11,7 +11,7 @@
 
 		<appender name="FILE"
 			class="ch.qos.logback.core.FileAppender">
-			<File>./log/smaster-home.log</File>
+			<File>./logs/smaster-home.log</File>
 			<encoder>
 				<pattern>%d{yyyy-MM-dd HH:mm:ss.sss}[%-5p][%L][%t] %C--%m%n
 				</pattern>
