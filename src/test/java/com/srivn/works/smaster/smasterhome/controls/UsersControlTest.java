@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -62,7 +63,8 @@ class UsersControlTest {
 	@CrossOrigin
 	@PostMapping(value = "/addNewUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	final void test_AddNewUser_YES() throws Exception {
-		when(usersService.addNewUser(sampleDTODup)).thenReturn(SmasterMsg.builder().statusCode(HttpStatus.ACCEPTED.value()).message("SUCCESS : User created!").build());
+		when(usersService.addNewUser(sampleDTODup)).thenReturn(SmasterMsg.builder()
+				.statusCode(HttpStatus.ACCEPTED.value()).message("SUCCESS : User created!").build());
 		String url = "/users/addNewUser";
 		String inputData = mapToJson(sampleDTONew);
 
@@ -77,7 +79,9 @@ class UsersControlTest {
 	@CrossOrigin
 	@GetMapping(value = "/getAllUserInfo", produces = MediaType.APPLICATION_JSON_VALUE)
 	final void test_GetAllUserInfo() throws Exception {
-		when(usersService.getAllUserInfo()).thenReturn(List.of(sampleDTODup, sampleDTONew));
+		when(usersService.getAllUserInfo()).thenReturn(
+				SmasterMsg.builder().statusCode(HttpStatus.ACCEPTED.value()).message("SUCCESS : User created!")
+						.data(Arrays.asList(new UserInfo[] { sampleDTODup, sampleDTONew })).build());
 		String url = "/users/getAllUserInfo";
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url).accept(MediaType.APPLICATION_JSON_VALUE))
 				.andReturn();
@@ -92,8 +96,8 @@ class UsersControlTest {
 	final void test_GetUserByEmail() throws Exception {
 		when(usersService.getUserByEmail(sampleDTODup.getUserEmail())).thenReturn(sampleDTODup);
 		String url = "/users/getUserByEmail";
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url).param("userEmail", sampleDTODup.getUserEmail()).accept(MediaType.APPLICATION_JSON_VALUE))
-				.andReturn();
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)
+				.param("userEmail", sampleDTODup.getUserEmail()).accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 		assertEquals(mvcResult.getResponse().getStatus(), 200);
 	}
 
