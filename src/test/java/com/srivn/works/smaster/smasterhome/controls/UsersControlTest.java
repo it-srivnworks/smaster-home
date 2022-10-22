@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.srivn.works.smaster.smasterhome.model.SmasterMsg;
-import com.srivn.works.smaster.smasterhome.model.UserInfo;
+import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
 import com.srivn.works.smaster.smasterhome.repo.UserRepository;
 import com.srivn.works.smaster.smasterhome.services.UsersService;
 

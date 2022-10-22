@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.srivn.works.smaster.smasterhome.exception.DataNotFoundException;
 import com.srivn.works.smaster.smasterhome.exception.DuplicateDataException;
 import com.srivn.works.smaster.smasterhome.model.SmasterMsg;
-import com.srivn.works.smaster.smasterhome.model.UserInfo;
+import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
 import com.srivn.works.smaster.smasterhome.repo.UserRepository;
 import com.srivn.works.smaster.smasterhome.repo.entity.users.UserInfoEn;
 

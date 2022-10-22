@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.srivn.works.smaster.smasterhome.exception.DataNotFoundException;
 import com.srivn.works.smaster.smasterhome.exception.DuplicateDataException;
 import com.srivn.works.smaster.smasterhome.exception.SmasterException;
-import com.srivn.works.smaster.smasterhome.model.UserInfo;
+import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
 import com.srivn.works.smaster.smasterhome.repo.UserRepository;
 import com.srivn.works.smaster.smasterhome.repo.entity.users.UserInfoEn;
 

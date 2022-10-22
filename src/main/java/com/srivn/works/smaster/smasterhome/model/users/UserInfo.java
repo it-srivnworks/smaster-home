@@ -1,4 +1,4 @@
-package com.srivn.works.smaster.smasterhome.model;
+package com.srivn.works.smaster.smasterhome.model.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

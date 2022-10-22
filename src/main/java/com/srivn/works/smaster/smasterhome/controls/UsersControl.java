@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.srivn.works.smaster.smasterhome.SmasterHomeApplication;
-import com.srivn.works.smaster.smasterhome.model.UserInfo;
+import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
 import com.srivn.works.smaster.smasterhome.services.UsersService;
 
 @RestController
