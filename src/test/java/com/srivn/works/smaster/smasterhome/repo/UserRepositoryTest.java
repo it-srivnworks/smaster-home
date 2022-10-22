@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.srivn.works.smaster.smasterhome.repo.entity.UserInfoEn;
+import com.srivn.works.smaster.smasterhome.repo.entity.users.UserInfoEn;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -23,6 +23,7 @@ import com.srivn.works.smaster.smasterhome.repo.entity.UserInfoEn;
 @ActiveProfiles("test")
 class UserRepositoryTest {
 
+	/*
 	@Autowired
 	UserRepository userRepository;
 
@@ -50,4 +51,5 @@ class UserRepositoryTest {
 		System.out.println(res);
 		assertTrue(res.isPresent());
 	}
+	*/
 }

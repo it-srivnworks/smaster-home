@@ -17,7 +17,7 @@ import com.srivn.works.smaster.smasterhome.exception.DuplicateDataException;
 import com.srivn.works.smaster.smasterhome.model.SmasterMsg;
 import com.srivn.works.smaster.smasterhome.model.UserInfo;
 import com.srivn.works.smaster.smasterhome.repo.UserRepository;
-import com.srivn.works.smaster.smasterhome.repo.entity.UserInfoEn;
+import com.srivn.works.smaster.smasterhome.repo.entity.users.UserInfoEn;
 
 @Service
 public class UsersService {
