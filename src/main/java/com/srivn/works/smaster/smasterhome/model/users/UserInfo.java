@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserInfo {
 
-	private String userName;
+	private String title;
+	private String firstName;
+	private String lastName;
 	private String userEmail;
-	private int userAge;
 
 }

@@ -11,6 +11,12 @@ import javax.persistence.Table;
 
 import com.srivn.works.smaster.smasterhome.repo.entity.util.ClsnValEn;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "ADDRESSINFO")
 public class AddressInfoEn {
@@ -36,7 +42,7 @@ public class AddressInfoEn {
 	
 	@Id
     @Column(name = "userID")
-    private Long userID;
+    private int userID;
 
 	@OneToOne
     @MapsId
@@ -47,8 +53,9 @@ public class AddressInfoEn {
 		super();
 	}
 
+	@Builder
 	public AddressInfoEn(String addressLine01, String aAddressLine02, String city, String state, ClsnValEn country,
-			String postCode, Long userID, UserInfoEn userInfoEn) {
+			String postCode) {
 		super();
 		this.addressLine01 = addressLine01;
 		this.aAddressLine02 = aAddressLine02;
@@ -56,9 +63,9 @@ public class AddressInfoEn {
 		this.state = state;
 		this.country = country;
 		this.postCode = postCode;
-		this.userID = userID;
-		this.userInfoEn = userInfoEn;
 	}
+
+	
 
 		
 }

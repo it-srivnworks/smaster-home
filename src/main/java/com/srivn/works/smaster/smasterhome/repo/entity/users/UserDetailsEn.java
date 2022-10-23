@@ -10,6 +10,11 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class UserDetailsEn extends UserInfoEn{
@@ -44,17 +49,17 @@ public abstract class UserDetailsEn extends UserInfoEn{
 
 
 
-	public UserDetailsEn(Date dob, byte[] profilePic, String mobile, AddressInfoEn primaryAddress, int currentStatus,
-			Date inDate, Date outDate) {
-		super();
-		this.dob = dob;
-		this.profilePic = profilePic;
-		this.mobile = mobile;
-		this.primaryAddress = primaryAddress;
-		this.currentStatus = currentStatus;
-		this.inDate = inDate;
-		this.outDate = outDate;
+	protected UserDetailsEn(String userEmail, String title, String firstName, String lastName) {
+		super(userEmail, title, firstName, lastName);
+		// TODO Auto-generated constructor stub
 	}
+
+
+	public void setPrimaryAddress(AddressInfoEn addressInfoEn) {
+        this.primaryAddress = addressInfoEn;
+        this.primaryAddress.setUserInfoEn(this); // setting the parent class as the value for the child instance
+    }
+
 
 
 

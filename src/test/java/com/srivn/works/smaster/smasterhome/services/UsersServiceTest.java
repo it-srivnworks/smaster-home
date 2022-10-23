@@ -23,7 +23,10 @@ import com.srivn.works.smaster.smasterhome.exception.DataNotFoundException;
 import com.srivn.works.smaster.smasterhome.exception.DuplicateDataException;
 import com.srivn.works.smaster.smasterhome.exception.SmasterException;
 import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
-import com.srivn.works.smaster.smasterhome.repo.UserRepository;
+import com.srivn.works.smaster.smasterhome.repo.users.StaffInfoRepo;
+import com.srivn.works.smaster.smasterhome.repo.users.UserInfoRepo;
+import com.srivn.works.smaster.smasterhome.repo.users.UserRepository;
+import com.srivn.works.smaster.smasterhome.repo.entity.users.StaffInfoEn;
 import com.srivn.works.smaster.smasterhome.repo.entity.users.UserInfoEn;
 
 @RunWith(SpringRunner.class)
@@ -31,6 +34,19 @@ import com.srivn.works.smaster.smasterhome.repo.entity.users.UserInfoEn;
 @ActiveProfiles("test")
 class UsersServiceTest {
 
+	@Mock
+	StaffInfoRepo staffInfoRepo;
+	
+	@InjectMocks
+	UsersService usersService;
+	
+	private UserInfo sampleDTONew;
+	private StaffInfoEn staffInfoEn;
+	@BeforeEach
+	public void setup() {
+		sampleDTONew = UserInfo.builder().title("Mr").firstName("Fname").lastName("LName").userEmail("email").build();
+
+	}
 	/*
 	@InjectMocks
 	UsersService usersService;
@@ -107,4 +123,10 @@ class UsersServiceTest {
 		assertThrows(DataNotFoundException.class, () -> usersService.getUserByEmail(sampleDTODup.getUserEmail()));
 	}
 	*/
+	@DisplayName("Test Adding Basic User Info")
+	@Test
+	final void test_addNewUser() {
+		usersService.addNewUser(sampleDTONew);
+	}
+	
 }

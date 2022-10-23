@@ -21,8 +21,8 @@ public class ClsnEn {
 	@Column(name = "clsnid")
 	private int clsnID;
 	
-	@Column(name = "clsnkey")
-	private String clsnKey;
+	@Column(name = "clsnKey")
+	private String key;
 	
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "clsnid")

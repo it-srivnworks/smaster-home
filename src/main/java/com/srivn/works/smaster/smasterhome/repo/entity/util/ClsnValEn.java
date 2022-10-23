@@ -17,6 +17,6 @@ public class ClsnValEn {
 	private int clsnValID;
 	
 	@Column(name = "clsnVal")
-	private String clsnVal;
+	private String value;
 	
 }

@@ -8,9 +8,15 @@ import javax.persistence.Table;
 
 import com.srivn.works.smaster.smasterhome.repo.entity.util.ClsnValEn;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "STAFFINFO")
-public class StaffinfoEn extends UserDetailsEn{
+public class  StaffInfoEn  extends UserDetailsEn{
 
 	@ManyToOne
 	@JoinColumn(name = "profile_title")
@@ -22,18 +28,16 @@ public class StaffinfoEn extends UserDetailsEn{
 	@ManyToOne
 	@JoinColumn(name = "deptid")
 	private ClsnValEn deptID;
-	
-	public StaffinfoEn() {
+
+	public StaffInfoEn() {
 		super();
 	}
 
-	public StaffinfoEn(ClsnValEn profileTitle, String profileDescription, ClsnValEn deptID) {
-		super();
-		this.profileTitle = profileTitle;
-		this.profileDescription = profileDescription;
-		this.deptID = deptID;
+	@Builder
+	public StaffInfoEn(String userEmail, String title, String firstName, String lastName) {
+		super(userEmail, title, firstName, lastName);
+		// TODO Auto-generated constructor stub
 	}
-
 	
 	
 }

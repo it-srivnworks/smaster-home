@@ -9,10 +9,16 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@ToString
+@Getter
+@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(name = "USERINFO")
 public class UserInfoEn {
 
 	@Id
@@ -38,9 +44,8 @@ public class UserInfoEn {
 	}
 
 
-	public UserInfoEn(int userID, String userEmail, String title, String firstName, String lastName) {
+	protected UserInfoEn(String userEmail, String title, String firstName, String lastName) {
 		super();
-		this.userID = userID;
 		this.userEmail = userEmail;
 		this.title = title;
 		this.firstName = firstName;
