@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -17,51 +18,35 @@ import lombok.Setter;
 @Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class UserDetailsEn extends UserInfoEn{
+public abstract class UserDetailsEn extends UserInfoEn {
 
 	@Column(name = "dob")
 	private Date dob;
-	
-	@Column(name = "profilePic")
-	private byte[] profilePic;
-	
+
+	@OneToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "prof_pic")
+	private UserPicturesEn userPic;
+
 	@Column(name = "mobile")
 	private String mobile;
-	
-	@OneToOne(mappedBy = "userInfoEn", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+
+	@OneToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "primary_addresID")
 	private AddressInfoEn primaryAddress;
-	
-	@Column(name = "currentStatus")
-	private int currentStatus;
-	
+
 	@Column(name = "inDate")
 	private Date inDate;
-	
+
 	@Column(name = "outDate")
 	private Date outDate;
-	
-	
-	
+
 	public UserDetailsEn() {
 		super();
 	}
 
-
-
-	protected UserDetailsEn(String userEmail, String title, String firstName, String lastName) {
-		super(userEmail, title, firstName, lastName);
+	protected UserDetailsEn(String userEmail, String title, String firstName, String lastName, int currentStatus) {
+		super(userEmail, title, firstName, lastName, currentStatus);
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public void setPrimaryAddress(AddressInfoEn addressInfoEn) {
-        this.primaryAddress = addressInfoEn;
-        this.primaryAddress.setUserInfoEn(this); // setting the parent class as the value for the child instance
-    }
-
-
-
-
-	
 }

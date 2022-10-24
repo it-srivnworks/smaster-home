@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.srivn.works.smaster.smasterhome.model.users.StaffDetials;
 import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
 import com.srivn.works.smaster.smasterhome.services.UsersService;
 
@@ -29,6 +31,11 @@ public class UsersControl {
 	@PostMapping(value = "/addNewUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> addNewUser(@RequestBody UserInfo userInfo) {
 		return new ResponseEntity<>(usersService.addNewUser(userInfo), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/updateNewStaffData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> updateNewStaffData(@RequestBody StaffDetials staffDetials) {
+		return new ResponseEntity<>(usersService.updateNewStaffData(staffDetials), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/checkUserByEmail", produces = MediaType.APPLICATION_JSON_VALUE)

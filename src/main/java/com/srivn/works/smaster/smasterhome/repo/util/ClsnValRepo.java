@@ -11,4 +11,7 @@ public interface ClsnValRepo extends JpaRepository<ClsnValEn, Integer>{
 
 	@Cacheable("ClsnVal")
 	ClsnValEn findByValue(String value);
+	
+	@Cacheable("ClsnVal")
+	ClsnValEn findByClsnValID(int clsnValID);
 }

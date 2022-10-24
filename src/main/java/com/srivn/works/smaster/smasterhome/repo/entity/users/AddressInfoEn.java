@@ -2,6 +2,8 @@ package com.srivn.works.smaster.smasterhome.repo.entity.users;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,6 +23,11 @@ import lombok.Setter;
 @Table(name = "ADDRESSINFO")
 public class AddressInfoEn {
 
+	@Id 
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "addressID")
+    private long id;
+	
 	@Column(name = "addressLine01")
 	private String addressLine01;
 	
@@ -39,15 +46,6 @@ public class AddressInfoEn {
 	
 	@Column(name = "postCode")
 	private String postCode;
-	
-	@Id
-    @Column(name = "userID")
-    private int userID;
-
-	@OneToOne
-    @MapsId
-    @JoinColumn(name = "userID")
-    private UserInfoEn userInfoEn;
 	
 	public AddressInfoEn() {
 		super();

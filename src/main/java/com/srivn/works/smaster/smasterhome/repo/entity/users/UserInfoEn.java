@@ -19,7 +19,7 @@ import lombok.ToString;
 @Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class UserInfoEn {
+public abstract class UserInfoEn {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,33 +28,33 @@ public class UserInfoEn {
 
 	@Column(name = "userEmail")
 	private String userEmail;
-	
+
 	@Column(name = "title")
 	private String title;
-	
+
 	@Column(name = "firstName")
 	private String firstName;
-	
+
 	@Column(name = "lastName")
 	private String lastName;
-	
-	
+
+	@Column(name = "currentStatus")
+	private int currentStatus;
+
 	public UserInfoEn() {
 		super();
 	}
 
-
-	protected UserInfoEn(String userEmail, String title, String firstName, String lastName) {
+	public UserInfoEn( String userEmail, String title, String firstName, String lastName,
+			int currentStatus) {
 		super();
 		this.userEmail = userEmail;
 		this.title = title;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.currentStatus = currentStatus;
 	}
 
-
 	
-	
-
 	
 }
