@@ -17,6 +17,7 @@ import com.srivn.works.smaster.smasterhome.model.users.GuardianInfo;
 import com.srivn.works.smaster.smasterhome.model.users.StaffInfo;
 import com.srivn.works.smaster.smasterhome.model.users.StudentInfo;
 import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
+import com.srivn.works.smaster.smasterhome.model.users.UserRegistration;
 import com.srivn.works.smaster.smasterhome.services.UsersService;
 
 @RestController
@@ -30,10 +31,6 @@ public class UsersControl {
 	private static final Logger logger = LoggerFactory.getLogger(UsersControl.class);
 	
 
-	@PostMapping(value = "/addNewUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> addNewUser(@RequestBody UserInfo userInfo) {
-		return new ResponseEntity<>(usersService.addNewUser(userInfo), HttpStatus.OK);
-	}
 	
 	@PostMapping(value = "/updateNewStaffData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> updateNewStaffData(@RequestBody StaffInfo staffInfo) {

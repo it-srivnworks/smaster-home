@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.srivn.works.smaster.smasterhome.exception.DataNotFoundException;
 import com.srivn.works.smaster.smasterhome.exception.DuplicateDataException;
@@ -21,6 +22,7 @@ import com.srivn.works.smaster.smasterhome.model.users.GuardianInfo;
 import com.srivn.works.smaster.smasterhome.model.users.StaffInfo;
 import com.srivn.works.smaster.smasterhome.model.users.StudentInfo;
 import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
+import com.srivn.works.smaster.smasterhome.model.users.UserRegistration;
 import com.srivn.works.smaster.smasterhome.repo.entity.users.GuardianInfoEn;
 import com.srivn.works.smaster.smasterhome.repo.entity.users.StaffInfoEn;
 import com.srivn.works.smaster.smasterhome.repo.entity.users.StudentInfoEn;
@@ -52,9 +54,12 @@ public class UsersService {
 	@Autowired
 	ClsnValRepo clsnValRepo;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	private ModelMapper modelMapper;
 
-	public SmasterMsg addNewUser(UserInfo userInfo) {
+	public SmasterMsg addNewUser(UserRegistration userInfo) {
 		logger.info("addNewUser()");
 		if (userInfoRepo.findByUserEmail(userInfo.getUserEmail()).isEmpty()) {
 			addNewUserByType(userInfo);
@@ -130,8 +135,9 @@ public class UsersService {
 		return studentDetailList;
 	}
 
-	private void addNewUserByType(UserInfo userInfo) {
+	private void addNewUserByType(UserRegistration userInfo) {
 		modelMapper = new ModelMapper();
+		userInfo.setUserPassword(passwordEncoder.encode(userInfo.getUserPassword()));
 		switch (userInfo.getUserType()) {
 		case AppConstants.USERTYPE_STAFF:
 			StaffInfoEn staffInfoEn = modelMapper.map(userInfo, StaffInfoEn.class);

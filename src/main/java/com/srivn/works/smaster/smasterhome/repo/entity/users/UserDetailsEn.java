@@ -44,8 +44,9 @@ public abstract class UserDetailsEn extends UserInfoEn {
 		super();
 	}
 
-	protected UserDetailsEn(String userEmail, String title, String firstName, String lastName, int currentStatus,int userType) {
-		super(userEmail, title, firstName, lastName, currentStatus,userType);
+	public UserDetailsEn(int userID, String userEmail, String userPassword, String title, String firstName,
+			String lastName, int currentStatus, int userType) {
+		super(userID, userEmail, userPassword, title, firstName, lastName, currentStatus, userType);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import com.srivn.works.smaster.smasterhome.repo.entity.util.ClsnValEn;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 @Table(name = "STAFFINFO")
 public class  StaffInfoEn  extends UserDetailsEn{
 
@@ -33,11 +35,5 @@ public class  StaffInfoEn  extends UserDetailsEn{
 		super();
 	}
 
-	@Builder
-	public StaffInfoEn(String userEmail, String title, String firstName, String lastName,int currentStatus,int userType) {
-		super(userEmail, title, firstName, lastName,currentStatus,userType);
-		// TODO Auto-generated constructor stub
-	}
-	
 	
 }

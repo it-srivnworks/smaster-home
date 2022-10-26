@@ -126,7 +126,7 @@ class UsersServiceTest {
 	@DisplayName("Test Adding Basic User Info")
 	@Test
 	final void test_addNewUser() {
-		usersService.addNewUser(sampleDTONew);
+		//usersService.addNewUser(sampleDTONew);
 	}
 	
 }

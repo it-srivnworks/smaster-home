@@ -28,7 +28,10 @@ public abstract class UserInfoEn {
 
 	@Column(name = "userEmail")
 	private String userEmail;
-
+	
+	@Column(name = "userPassword")
+	private String userPassword;
+	
 	@Column(name = "title")
 	private String title;
 
@@ -48,16 +51,20 @@ public abstract class UserInfoEn {
 		super();
 	}
 
-	public UserInfoEn( String userEmail, String title, String firstName, String lastName,
-			int currentStatus,int userType) {
+	public UserInfoEn(int userID, String userEmail, String userPassword, String title, String firstName,
+			String lastName, int currentStatus, int userType) {
 		super();
+		this.userID = userID;
 		this.userEmail = userEmail;
+		this.userPassword = userPassword;
 		this.title = title;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.currentStatus = currentStatus;
 		this.userType = userType;
 	}
+
+	
 
 	
 	
