@@ -11,6 +11,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+      enable_lazy_load_no_trans : true
+      event:
+          merge:
+            entity_copy_observer: allow
+    show-sql: true  
     properties:
       hibernate.format_sql: true
-
+    

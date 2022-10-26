@@ -38,21 +38,25 @@ public abstract class UserInfoEn {
 	@Column(name = "lastName")
 	private String lastName;
 
-	@Column(name = "currentStatus")
+	@Column(name = "currentstatus")
 	private int currentStatus;
+
+	@Column(name = "userType")
+	private int userType;
 
 	public UserInfoEn() {
 		super();
 	}
 
 	public UserInfoEn( String userEmail, String title, String firstName, String lastName,
-			int currentStatus) {
+			int currentStatus,int userType) {
 		super();
 		this.userEmail = userEmail;
 		this.title = title;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.currentStatus = currentStatus;
+		this.userType = userType;
 	}
 
 	

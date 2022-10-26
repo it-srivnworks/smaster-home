@@ -1,35 +1,34 @@
 package com.srivn.works.smaster.smasterhome.repo.entity.users;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
+@AllArgsConstructor
 @Table(name = "STUDENTINFO")
 public class StudentInfoEn extends UserDetailsEn {
 
 	@Column(name = "rollno")
 	private int rollNo;
-	
-	@OneToMany(cascade = CascadeType.DETACH)
-	@JoinColumn(name = "userID")
-	private List<GuardianInfoEn> guardians;
 
+	@ManyToOne
+	@JoinColumn(name = "pguardian")
+	private GuardianInfoEn pguardian;
+	
+	@ManyToOne
+	@JoinColumn(name = "sguardian")
+	private GuardianInfoEn sguardian;
+	
 	public StudentInfoEn() {
 		super();
 	}
-
-	public StudentInfoEn(List<GuardianInfoEn> guardians) {
-		super();
-		this.guardians = guardians;
-	}
-
-	
-
 }

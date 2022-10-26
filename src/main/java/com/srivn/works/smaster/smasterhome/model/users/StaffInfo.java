@@ -2,15 +2,16 @@ package com.srivn.works.smaster.smasterhome.model.users;
 
 import java.sql.Date;
 
+import com.srivn.works.smaster.smasterhome.utils.AppConstants;
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StaffDetials extends UserInfo{
+public class StaffInfo extends UserInfo{
 
 	private Date dob;
 	private int picId;
@@ -23,11 +24,15 @@ public class StaffDetials extends UserInfo{
 	private String profileDescription;
 	private String dept;
 	
-	public StaffDetials(String title, String firstName, String lastName, String userEmail, int userType) {
-		super(title, firstName, lastName, userEmail, userType);
+	public StaffInfo(String title, String firstName, String lastName, String userEmail, int userType) {
+		super(title, firstName, lastName, userEmail, AppConstants.USERTYPE_STAFF);
 		// TODO Auto-generated constructor stub
 	}
 
 		
-	
+	@Override
+	public int getUserType() {
+		// TODO Auto-generated method stub
+		return AppConstants.USERTYPE_STAFF;
+	}
 }

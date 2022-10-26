@@ -13,6 +13,7 @@ public interface UserInfoRepo extends JpaRepository<UserInfoEn, Integer>{
 	
 	public Optional<UserInfoEn> findByUserEmail(String userEmail);
 	
-	
+	@Query("SELECT ui.userID FROM UserInfoEn ui WHERE ui.userEmail = :userEmail")
+	public Optional<Integer> getUserIDByUserEmail(@Param("userEmail") String userEmail);
 
 }

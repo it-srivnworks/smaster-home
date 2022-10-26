@@ -34,8 +34,8 @@ public class  StaffInfoEn  extends UserDetailsEn{
 	}
 
 	@Builder
-	public StaffInfoEn(String userEmail, String title, String firstName, String lastName,int currentStatus) {
-		super(userEmail, title, firstName, lastName,currentStatus);
+	public StaffInfoEn(String userEmail, String title, String firstName, String lastName,int currentStatus,int userType) {
+		super(userEmail, title, firstName, lastName,currentStatus,userType);
 		// TODO Auto-generated constructor stub
 	}
 	

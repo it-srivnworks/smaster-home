@@ -21,7 +21,7 @@ import lombok.Setter;
 public abstract class UserDetailsEn extends UserInfoEn {
 
 	@Column(name = "dob")
-	private Date dob;
+	private String dob;
 
 	@OneToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "prof_pic")
@@ -31,21 +31,21 @@ public abstract class UserDetailsEn extends UserInfoEn {
 	private String mobile;
 
 	@OneToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "primary_addresID")
+	@JoinColumn(name = "primaryAddress")
 	private AddressInfoEn primaryAddress;
 
 	@Column(name = "inDate")
-	private Date inDate;
+	private String inDate;
 
 	@Column(name = "outDate")
-	private Date outDate;
+	private String outDate;
 
 	public UserDetailsEn() {
 		super();
 	}
 
-	protected UserDetailsEn(String userEmail, String title, String firstName, String lastName, int currentStatus) {
-		super(userEmail, title, firstName, lastName, currentStatus);
+	protected UserDetailsEn(String userEmail, String title, String firstName, String lastName, int currentStatus,int userType) {
+		super(userEmail, title, firstName, lastName, currentStatus,userType);
 		// TODO Auto-generated constructor stub
 	}
 
