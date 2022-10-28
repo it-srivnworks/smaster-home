@@ -26,4 +26,22 @@ public class UserExceptionHandler{
 		return new ResponseEntity<ExObject>(exObj,HttpStatus.CONFLICT);
 		
 	} 
+	
+	@ExceptionHandler(value = {NoAccessException.class})
+	public ResponseEntity<ExObject> handleNAEx(NoAccessException ex){
+		ExObject exObj = new ExObject();
+		exObj.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+		exObj.setMessage(ex.getMessage());
+		return new ResponseEntity<ExObject>(exObj,HttpStatus.UNAUTHORIZED);
+		
+	} 
+	
+	@ExceptionHandler(value = {BadRequestException.class})
+	public ResponseEntity<ExObject> handleBRDEx(BadRequestException ex){
+		ExObject exObj = new ExObject();
+		exObj.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		exObj.setMessage(ex.getMessage());
+		return new ResponseEntity<ExObject>(exObj,HttpStatus.BAD_REQUEST);
+		
+	} 
 }

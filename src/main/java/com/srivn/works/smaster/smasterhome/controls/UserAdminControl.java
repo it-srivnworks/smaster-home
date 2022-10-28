@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.srivn.works.smaster.smasterhome.config.JwtTokenUtil;
 import com.srivn.works.smaster.smasterhome.exception.DuplicateDataException;
+import com.srivn.works.smaster.smasterhome.exception.NoAccessException;
 import com.srivn.works.smaster.smasterhome.exception.SmasterException;
 import com.srivn.works.smaster.smasterhome.model.users.JwtResponse;
 import com.srivn.works.smaster.smasterhome.model.users.UserLoginData;
 import com.srivn.works.smaster.smasterhome.model.users.UserRegistration;
 import com.srivn.works.smaster.smasterhome.services.JWTUserDetailsService;
 import com.srivn.works.smaster.smasterhome.services.UsersService;
+
+import io.jsonwebtoken.MalformedJwtException;
+
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -65,9 +69,9 @@ public class UserAdminControl {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userEmail, password));
 		} catch (DisabledException e) {
-			throw new SmasterException("USER_DISABLED !");
+			throw new NoAccessException("USER_DISABLED !");
 		} catch (BadCredentialsException e) {
-			throw new SmasterException("INVALID_CREDENTIALS !");
+			throw new NoAccessException("INVALID_CREDENTIALS !");
 		}
 	}
 
