@@ -62,7 +62,7 @@ public class UserAdminControl {
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(userLoginData.getUserEmail());
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		JwtResponse jwtt = new JwtResponse(userLoginData.getUserEmail(),token);
-		return ResponseEntity.ok(jwtt);
+		return new ResponseEntity<>(jwtt, HttpStatus.OK);
 	}
 
 	private void authenticate(String userEmail, String password) throws Exception {
