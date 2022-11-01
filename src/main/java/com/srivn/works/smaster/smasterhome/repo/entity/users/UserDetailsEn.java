@@ -1,6 +1,6 @@
 package com.srivn.works.smaster.smasterhome.repo.entity.users;
 
-import java.sql.Date;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +14,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Entity
@@ -21,7 +23,7 @@ import lombok.Setter;
 public abstract class UserDetailsEn extends UserInfoEn {
 
 	@Column(name = "dob")
-	private String dob;
+	private Date dob;
 
 	@OneToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "prof_pic")
@@ -35,10 +37,10 @@ public abstract class UserDetailsEn extends UserInfoEn {
 	private AddressInfoEn primaryAddress;
 
 	@Column(name = "inDate")
-	private String inDate;
+	private Date inDate;
 
 	@Column(name = "outDate")
-	private String outDate;
+	private Date outDate;
 
 	public UserDetailsEn() {
 		super();

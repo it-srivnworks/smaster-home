@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StudentInfo extends UserInfo{
 
-	private Date dob;
+	private String dob;
 	private int picId;
 	private String mobile;
 	private AddressInfo primaryAddress;
-	private Date inDate;
-	private Date outDate;
+	private String inDate;
+	private String outDate;
 	
 	private String pGuardianEmail;
 	private String sGuardianEmail;

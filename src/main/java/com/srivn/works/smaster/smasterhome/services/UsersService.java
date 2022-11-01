@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.srivn.works.smaster.smasterhome.repo.mappers.StudentsMapper;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
@@ -59,6 +60,9 @@ public class UsersService {
 	
 	private ModelMapper modelMapper;
 
+	@Autowired
+	private StudentsMapper studentsMapper;
+
 	public SmasterMsg addNewUser(UserRegistration userInfo) {
 		logger.info("addNewUser()");
 		if (userInfoRepo.findByUserEmail(userInfo.getUserEmail()).isEmpty()) {
@@ -82,7 +86,9 @@ public class UsersService {
 				break;
 			case AppConstants.USERTYPE_STUDENT:
 				StudentInfo studentInfo = (StudentInfo)userInfo;
-				StudentInfoEn studentInfoEn = mapStudentInfoDTO2En(studentInfo, userID.get());
+				StudentInfoEn studentInfoEn = studentInfoRepo.findByUserEmail(studentInfo.getUserEmail()).get();
+				studentsMapper.updateEnFromDTO(studentInfo,studentInfoEn);
+				//StudentInfoEn studentInfoEn = mapStudentInfoDTO2En(studentInfo, userID.get());
 				studentInfoRepo.save(studentInfoEn);
 				break;
 			case AppConstants.USERTYPE_GUARDIAN:
