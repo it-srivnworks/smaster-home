@@ -13,23 +13,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StaffInfo extends UserInfo{
 
-	private Date dob;
+	private String dob;
 	private int picId;
 	private String mobile;
 	private AddressInfo primaryAddress;
-	private Date inDate;
-	private Date outDate;
+	private String inDate;
+	private String outDate;
 	
 	private String profileTitle;
 	private String profileDescription;
 	private String dept;
-	
-	public StaffInfo(String title, String firstName, String lastName, String userEmail, int userType) {
-		super(title, firstName, lastName, userEmail, AppConstants.USERTYPE_STAFF);
-		// TODO Auto-generated constructor stub
-	}
 
-		
 	@Override
 	public int getUserType() {
 		// TODO Auto-generated method stub

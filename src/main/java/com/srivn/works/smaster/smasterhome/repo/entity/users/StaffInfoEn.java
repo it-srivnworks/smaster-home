@@ -28,8 +28,8 @@ public class  StaffInfoEn  extends UserDetailsEn{
 	private String profileDescription;
 	
 	@ManyToOne
-	@JoinColumn(name = "deptid")
-	private ClsnValEn deptID;
+	@JoinColumn(name = "dept")
+	private ClsnValEn dept;
 
 	public StaffInfoEn() {
 		super();

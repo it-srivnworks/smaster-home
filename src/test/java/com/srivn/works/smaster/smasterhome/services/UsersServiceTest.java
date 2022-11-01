@@ -44,7 +44,7 @@ class UsersServiceTest {
 	private StaffInfoEn staffInfoEn;
 	@BeforeEach
 	public void setup() {
-		sampleDTONew = UserInfo.builder().title("Mr").firstName("Fname").lastName("LName").userEmail("email").build();
+		//sampleDTONew = UserInfo.builder().title("Mr").firstName("Fname").lastName("LName").userEmail("email").build();
 
 	}
 	/*

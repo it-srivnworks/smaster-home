@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.srivn.works.smaster.smasterhome.repo.mappers.StudentsMapper;
+import com.srivn.works.smaster.smasterhome.repo.mappers.*;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,11 +58,18 @@ public class UsersService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-	private ModelMapper modelMapper;
-
 	@Autowired
 	private StudentsMapper studentsMapper;
+	@Autowired
+	CustomStudentMapper customStudentMapper;
+	@Autowired
+	private StaffMapper staffMapper;
+	@Autowired
+	CustomStaffMapper customStaffMapper;
+	@Autowired
+	private GuardianMapper guardianMapper;
+	@Autowired
+	CustomGuardianMapper customGuardianMapper;
 
 	public SmasterMsg addNewUser(UserRegistration userInfo) {
 		logger.info("addNewUser()");
@@ -74,6 +82,26 @@ public class UsersService {
 
 	}
 
+	private void addNewUserByType(UserRegistration userInfo) {
+		userInfo.setUserPassword(passwordEncoder.encode(userInfo.getUserPassword()));
+		switch (userInfo.getUserType()) {
+			case AppConstants.USERTYPE_STAFF:
+				StaffInfoEn staffInfoEn = staffMapper.UserRegDTOToEn(userInfo);
+				userInfoRepo.save(staffInfoEn);
+				break;
+			case AppConstants.USERTYPE_STUDENT:
+				StudentInfoEn studentInfoEn = studentsMapper.UserRegDTOToEn(userInfo);
+				userInfoRepo.save(studentInfoEn);
+				break;
+			case AppConstants.USERTYPE_GUARDIAN:
+				GuardianInfoEn guardianInfoEn = guardianMapper.UserRegDTOToEn(userInfo);
+				userInfoRepo.save(guardianInfoEn);
+				break;
+			default:
+				throw new DataNotFoundException("No record Found !");
+		}
+	}
+
 	public SmasterMsg updateNewUsertData(UserInfo userInfo) {
 		logger.info("updateNewUsertData()");
 		Optional<Integer> userID = userInfoRepo.getUserIDByUserEmail(userInfo.getUserEmail());
@@ -81,14 +109,12 @@ public class UsersService {
 			switch (userInfo.getUserType()) {
 			case AppConstants.USERTYPE_STAFF:
 				StaffInfo staffInfo = (StaffInfo)userInfo;
-				StaffInfoEn staffInfoEnNew = mapStaffInfoDTO2En(staffInfo, userID.get());
-				staffInfoRepo.save(staffInfoEnNew);
+				StaffInfoEn staffInfoEn = mapStaffInfoDTO2En(staffInfo);
+				staffInfoRepo.save(staffInfoEn);
 				break;
 			case AppConstants.USERTYPE_STUDENT:
 				StudentInfo studentInfo = (StudentInfo)userInfo;
-				StudentInfoEn studentInfoEn = studentInfoRepo.findByUserEmail(studentInfo.getUserEmail()).get();
-				studentsMapper.updateEnFromDTO(studentInfo,studentInfoEn);
-				//StudentInfoEn studentInfoEn = mapStudentInfoDTO2En(studentInfo, userID.get());
+				StudentInfoEn studentInfoEn = mapStudentInfoDTO2En(studentInfo);
 				studentInfoRepo.save(studentInfoEn);
 				break;
 			case AppConstants.USERTYPE_GUARDIAN:
@@ -117,73 +143,48 @@ public class UsersService {
 	}
 
 	public List<UserInfo> getAllUserInfo(int userType) {
-		modelMapper = new ModelMapper();
 		List<UserInfoEn> userInfoEnList = userInfoRepo.findAll();
-		List<UserInfo> userInfoList = userInfoEnList.stream().map(user -> modelMapper.map(user, UserInfo.class))
+		List<UserInfo> userInfoList = userInfoEnList.stream().map(userEn -> {
+			UserInfo userInfo = new UserInfo();
+			BeanUtils.copyProperties(userEn,userInfo);
+			return userInfo;
+		})
 				.collect(Collectors.toList());
 		return userInfoList;
 	}
 
 	public List<StaffInfo> getAllStaffDetials() {
-		modelMapper = new ModelMapper();
 		List<StaffInfoEn> staffInfoEnList = staffInfoRepo.findAll();
-		List<StaffInfo> staffDetailList = staffInfoEnList.stream().map(user -> modelMapper.map(user, StaffInfo.class))
+		List<StaffInfo> staffDetailList = staffInfoEnList.stream().map(userEn -> staffMapper.EnToDTO(userEn))
 				.collect(Collectors.toList());
 		return staffDetailList;
 	}
 
 	public List<StudentInfo> getAllStudentDetials() {
-		modelMapper = new ModelMapper();
-		modelMapper.addConverter(convertDate2String());
 		List<StudentInfoEn> studentInfoEnList = studentInfoRepo.findAll();
 		List<StudentInfo> studentDetailList = studentInfoEnList.stream()
-				.map(user -> modelMapper.map(user, StudentInfo.class)).collect(Collectors.toList());
+				.map(userEn -> studentsMapper.EnToDTO(userEn)).collect(Collectors.toList());
 		return studentDetailList;
 	}
 
-	private void addNewUserByType(UserRegistration userInfo) {
-		modelMapper = new ModelMapper();
-		userInfo.setUserPassword(passwordEncoder.encode(userInfo.getUserPassword()));
-		switch (userInfo.getUserType()) {
-		case AppConstants.USERTYPE_STAFF:
-			StaffInfoEn staffInfoEn = modelMapper.map(userInfo, StaffInfoEn.class);
-			userInfoRepo.save(staffInfoEn);
-			break;
-		case AppConstants.USERTYPE_STUDENT:
-			StudentInfoEn studentInfoEn = modelMapper.map(userInfo, StudentInfoEn.class);
-			userInfoRepo.save(studentInfoEn);
-			break;
-		case AppConstants.USERTYPE_GUARDIAN:
-			GuardianInfoEn guardianInfoEn = modelMapper.map(userInfo, GuardianInfoEn.class);
-			userInfoRepo.save(guardianInfoEn);
-			break;
-		default:
-			throw new DataNotFoundException("No record Found !");
-		}
-	}
-
-	private StaffInfoEn mapStaffInfoDTO2En(StaffInfo staffInfo, int userID) {
-		modelMapper = new ModelMapper();
-		StaffInfoEn staffInfoEn = modelMapper.map(staffInfo, StaffInfoEn.class);
-		staffInfoEn.setUserID(userID);
-		staffInfoEn.setDeptID(clsnValRepo.findByValue(staffInfo.getDept()));
-		staffInfoEn.getPrimaryAddress().setCountry(clsnValRepo.findByValue(staffInfo.getPrimaryAddress().getCountry()));
+	private StaffInfoEn mapStaffInfoDTO2En(StaffInfo staffInfo) {
+		StaffInfoEn staffInfoEn = staffInfoRepo.findByUserEmail(staffInfo.getUserEmail()).get();
+		staffMapper.updateEnFromDTO(staffInfo,staffInfoEn);
+		customStaffMapper.updateEnFromDTO(staffInfo,staffInfoEn);
 		return staffInfoEn;
 	}
 
-	private StudentInfoEn mapStudentInfoDTO2En(StudentInfo studentInfo, int userID) {
-		modelMapper = new ModelMapper();
-		StudentInfoEn studentInfoEn = modelMapper.map(studentInfo, StudentInfoEn.class);
-		studentInfoEn.setUserID(userID);
-		studentInfoEn.setPguardian(guardianInfoRepo.findByUserEmail(studentInfo.getPGuardianEmail()).get());
-		studentInfoEn.setSguardian(guardianInfoRepo.findByUserEmail(studentInfo.getSGuardianEmail()).get());
+	private StudentInfoEn mapStudentInfoDTO2En(StudentInfo studentInfo) {
+		StudentInfoEn studentInfoEn = studentInfoRepo.findByUserEmail(studentInfo.getUserEmail()).get();
+		studentsMapper.updateEnFromDTO(studentInfo,studentInfoEn);
+		customStudentMapper.updateEnFromDTO(studentInfo,studentInfoEn);
 		return studentInfoEn;
 	}
 
-	private GuardianInfoEn mapGuardianInfoDTO2En(UserInfo guardianInfo, int userID) {
-		modelMapper = new ModelMapper();
-		GuardianInfoEn guardianInfoEn = modelMapper.map(guardianInfo, GuardianInfoEn.class);
-		guardianInfoEn.setUserID(userID);
+	private GuardianInfoEn mapGuardianInfoDTO2En(GuardianInfo guardianInfo, int userID) {
+		GuardianInfoEn guardianInfoEn = guardianInfoRepo.findByUserEmail(guardianInfo.getUserEmail()).get();
+		guardianMapper.updateEnFromDTO(guardianInfo,guardianInfoEn);
+		customGuardianMapper.updateEnFromDTO(guardianInfo,guardianInfoEn);
 		return guardianInfoEn;
 	}
 

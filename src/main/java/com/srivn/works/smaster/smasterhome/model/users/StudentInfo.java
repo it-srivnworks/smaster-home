@@ -4,10 +4,7 @@ import java.sql.Date;
 
 import com.srivn.works.smaster.smasterhome.utils.AppConstants;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -20,15 +17,10 @@ public class StudentInfo extends UserInfo{
 	private AddressInfo primaryAddress;
 	private String inDate;
 	private String outDate;
-	
-	private String pGuardianEmail;
-	private String sGuardianEmail;
-	
-	public StudentInfo(String title, String firstName, String lastName, String userEmail, int userType) {
-		super(title, firstName, lastName, userEmail, AppConstants.USERTYPE_STUDENT);
-		// TODO Auto-generated constructor stub
-	}
 
+	private String primGuardianEmail;
+	private String secnGuardianEmail;
+	
 	@Override
 	public int getUserType() {
 		// TODO Auto-generated method stub

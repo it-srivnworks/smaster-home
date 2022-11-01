@@ -1,11 +1,13 @@
 package com.srivn.works.smaster.smasterhome.model.users;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserInfo {
 
 	private String title;
@@ -14,15 +16,5 @@ public class UserInfo {
 	private String userEmail;
 	private int userType;
 
-	@Builder
-	public UserInfo(String title, String firstName, String lastName, String userEmail, int userType) {
-		super();
-		this.title = title;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userEmail = userEmail;
-		this.userType = userType;
-	}
 
-	
 }

@@ -40,7 +40,6 @@ public class UsersControl {
 	@PostMapping(value = "/updateNewStudentData", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> updateNewStudentData(@RequestBody StudentInfo studentInfo) {
 		//return new ResponseEntity<>(usersService.updateNewStudentData(studentInfo), HttpStatus.OK);
-		usersService.updateNewUsertData(studentInfo);
 		return new ResponseEntity<>(usersService.updateNewUsertData(studentInfo), HttpStatus.OK);
 	}
 	
