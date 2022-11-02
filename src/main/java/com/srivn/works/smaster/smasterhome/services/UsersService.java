@@ -1,15 +1,10 @@
 package com.srivn.works.smaster.smasterhome.services;
 
-import java.sql.Date;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.srivn.works.smaster.smasterhome.repo.mappers.*;
-import org.modelmapper.Converter;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.spi.MappingContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -188,12 +183,4 @@ public class UsersService {
 		return guardianInfoEn;
 	}
 
-	private static Converter<Date, String> convertDate2String() {
-		Converter<Date, String> dateToString = new Converter<Date, String>() {
-			public String convert(MappingContext<Date, String> context) {
-				return context.getSource() == null ? null : context.getSource().toString();
-			}
-		};
-		return dateToString;
-	}
 }

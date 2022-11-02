@@ -1,16 +1,7 @@
 package com.srivn.works.smaster.smasterhome.services;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,15 +10,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.srivn.works.smaster.smasterhome.exception.DataNotFoundException;
-import com.srivn.works.smaster.smasterhome.exception.DuplicateDataException;
-import com.srivn.works.smaster.smasterhome.exception.SmasterException;
 import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
 import com.srivn.works.smaster.smasterhome.repo.users.StaffInfoRepo;
-import com.srivn.works.smaster.smasterhome.repo.users.UserInfoRepo;
-import com.srivn.works.smaster.smasterhome.repo.users.UserRepository;
 import com.srivn.works.smaster.smasterhome.repo.entity.users.StaffInfoEn;
-import com.srivn.works.smaster.smasterhome.repo.entity.users.UserInfoEn;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -38,7 +23,7 @@ class UsersServiceTest {
 	StaffInfoRepo staffInfoRepo;
 	
 	@InjectMocks
-	UsersService usersService;
+    UsersService usersService;
 	
 	private UserInfo sampleDTONew;
 	private StaffInfoEn staffInfoEn;

@@ -1,5 +1,7 @@
 package com.srivn.works.smaster.smasterhome.controls;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,30 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.srivn.works.smaster.smasterhome.config.JwtTokenUtil;
-import com.srivn.works.smaster.smasterhome.exception.DuplicateDataException;
 import com.srivn.works.smaster.smasterhome.exception.NoAccessException;
-import com.srivn.works.smaster.smasterhome.exception.SmasterException;
 import com.srivn.works.smaster.smasterhome.model.users.JwtResponse;
 import com.srivn.works.smaster.smasterhome.model.users.UserLoginData;
 import com.srivn.works.smaster.smasterhome.model.users.UserRegistration;
 import com.srivn.works.smaster.smasterhome.services.JWTUserDetailsService;
 import com.srivn.works.smaster.smasterhome.services.UsersService;
 
-import io.jsonwebtoken.MalformedJwtException;
-
-import java.util.Objects;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("useradmin")
@@ -51,8 +42,11 @@ public class UserAdminControl {
 	@Autowired
 	private JWTUserDetailsService userDetailsService;
 
+	private static final Logger logger = LoggerFactory.getLogger(UserAdminControl.class);
+
 	@PostMapping(value = "/addNewUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> addNewUser(@RequestBody UserRegistration userInfo) {
+		logger.info(userInfo.toString());
 		return new ResponseEntity<>(usersService.addNewUser(userInfo), HttpStatus.OK);
 	}
 

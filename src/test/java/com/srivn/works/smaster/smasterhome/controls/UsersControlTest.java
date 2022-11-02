@@ -1,36 +1,8 @@
 package com.srivn.works.smaster.smasterhome.controls;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-
-import org.assertj.core.util.Arrays;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.srivn.works.smaster.smasterhome.model.SmasterMsg;
-import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
-import com.srivn.works.smaster.smasterhome.repo.users.UserRepository;
-import com.srivn.works.smaster.smasterhome.services.UsersService;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = UsersControl.class)

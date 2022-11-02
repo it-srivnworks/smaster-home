@@ -17,7 +17,7 @@ public class GuardianInfo extends UserInfo{
 	private String category;
 	
 	public GuardianInfo(String title, String firstName, String lastName, String userEmail, int userType) {
-		super(title, firstName, lastName, userEmail, AppConstants.USERTYPE_GUARDIAN);
+		super(firstName, lastName, userEmail, AppConstants.USERTYPE_GUARDIAN);
 		// TODO Auto-generated constructor stub
 	}
 

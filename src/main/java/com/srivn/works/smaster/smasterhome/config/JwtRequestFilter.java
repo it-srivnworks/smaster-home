@@ -1,9 +1,6 @@
 package com.srivn.works.smaster.smasterhome.config;
 
-import java.io.IOException;
-
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.srivn.works.smaster.smasterhome.exception.BadRequestException;
-import com.srivn.works.smaster.smasterhome.exception.NoAccessException;
 import com.srivn.works.smaster.smasterhome.services.JWTUserDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;

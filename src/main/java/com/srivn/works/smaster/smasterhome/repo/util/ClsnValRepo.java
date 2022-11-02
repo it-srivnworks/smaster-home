@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.srivn.works.smaster.smasterhome.repo.entity.util.ClsnValEn;
 
+import java.util.List;
+
 @Repository
 public interface ClsnValRepo extends JpaRepository<ClsnValEn, Integer>{
 
@@ -14,4 +16,5 @@ public interface ClsnValRepo extends JpaRepository<ClsnValEn, Integer>{
 	
 	@Cacheable("ClsnVal")
 	ClsnValEn findByClsnValID(int clsnValID);
+
 }

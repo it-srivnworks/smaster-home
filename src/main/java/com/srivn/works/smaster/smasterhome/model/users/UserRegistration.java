@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserRegistration {
 
-	private String title;
 	private String firstName;
 	private String lastName;
 	private String userEmail;
@@ -16,9 +15,8 @@ public class UserRegistration {
 	private int userType;
 
 	@Builder
-	public UserRegistration(String title, String firstName, String lastName, String userEmail, String userPassword, int userType) {
+	public UserRegistration(String firstName, String lastName, String userEmail, String userPassword, int userType) {
 		super();
-		this.title = title;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userEmail = userEmail;

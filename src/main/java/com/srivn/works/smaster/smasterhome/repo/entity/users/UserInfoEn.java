@@ -32,8 +32,8 @@ public abstract class UserInfoEn {
 	@Column(name = "userPassword")
 	private String userPassword;
 	
-	@Column(name = "title")
-	private String title;
+	/*@Column(name = "title")
+	private String title;*/
 
 	@Column(name = "firstName")
 	private String firstName;
@@ -51,13 +51,13 @@ public abstract class UserInfoEn {
 		super();
 	}
 
-	public UserInfoEn(int userID, String userEmail, String userPassword, String title, String firstName,
+	public UserInfoEn(int userID, String userEmail, String userPassword, String firstName,
 			String lastName, int currentStatus, int userType) {
 		super();
 		this.userID = userID;
 		this.userEmail = userEmail;
 		this.userPassword = userPassword;
-		this.title = title;
+		//this.title = title;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.currentStatus = currentStatus;

@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.srivn.works.smaster.smasterhome.model.users.GuardianInfo;
 import com.srivn.works.smaster.smasterhome.model.users.StaffInfo;
 import com.srivn.works.smaster.smasterhome.model.users.StudentInfo;
-import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
-import com.srivn.works.smaster.smasterhome.model.users.UserRegistration;
 import com.srivn.works.smaster.smasterhome.services.UsersService;
 
 @RestController
