@@ -38,33 +38,17 @@ public class UsersService {
 
 	@Autowired
 	UserInfoRepo userInfoRepo;
-
-	@Autowired
-	StaffInfoRepo staffInfoRepo;
-
-	@Autowired
-	StudentInfoRepo studentInfoRepo;
-
-	@Autowired
-	GuardianInfoRepo guardianInfoRepo;
-
-	@Autowired
-	ClsnValRepo clsnValRepo;
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	@Autowired
-	private StudentsMapper studentsMapper;
+	StaffMapper staffMapper;
 	@Autowired
-	CustomStudentMapper customStudentMapper;
+	StudentsMapper studentsMapper;
 	@Autowired
-	private StaffMapper staffMapper;
-	@Autowired
-	CustomStaffMapper customStaffMapper;
-	@Autowired
-	private GuardianMapper guardianMapper;
-	@Autowired
-	CustomGuardianMapper customGuardianMapper;
+	GuardianMapper guardianMapper;
+
+
+
 
 	public SmasterMsg addNewUser(UserRegistration userInfo) {
 		logger.info("addNewUser()");
@@ -97,36 +81,6 @@ public class UsersService {
 		}
 	}
 
-	public SmasterMsg updateNewUsertData(UserInfo userInfo) {
-		logger.info("updateNewUsertData()");
-		Optional<Integer> userID = userInfoRepo.getUserIDByUserEmail(userInfo.getUserEmail());
-		if (userID.isPresent() &&  userID.get() > 0) {
-			switch (userInfo.getUserType()) {
-			case AppConstants.USERTYPE_STAFF:
-				StaffInfo staffInfo = (StaffInfo)userInfo;
-				StaffInfoEn staffInfoEn = mapStaffInfoDTO2En(staffInfo);
-				staffInfoRepo.save(staffInfoEn);
-				break;
-			case AppConstants.USERTYPE_STUDENT:
-				StudentInfo studentInfo = (StudentInfo)userInfo;
-				StudentInfoEn studentInfoEn = mapStudentInfoDTO2En(studentInfo);
-				studentInfoRepo.save(studentInfoEn);
-				break;
-			case AppConstants.USERTYPE_GUARDIAN:
-				GuardianInfo guardianInfo = (GuardianInfo)userInfo;
-				GuardianInfoEn guardianInfoEn = mapGuardianInfoDTO2En(guardianInfo, userID.get());
-				guardianInfoRepo.save(guardianInfoEn);
-				break;
-			default:
-				throw new DataNotFoundException("No record Found !");
-			}
-		} else {
-			throw new DuplicateDataException("The User doesnot exist !");
-		}
-		return SmasterMsg.builder().statusCode(HttpStatus.OK.value()).message("SUCCESS : User Data Updated!").build();
-
-	}
-
 	public SmasterMsg checkUserByEmail(String userEmail) {
 		Optional<UserInfoEn> userInfoEn = userInfoRepo.findByUserEmail(userEmail);
 		if (!userInfoEn.isEmpty()) {
@@ -148,39 +102,5 @@ public class UsersService {
 		return userInfoList;
 	}
 
-	public List<StaffInfo> getAllStaffDetials() {
-		List<StaffInfoEn> staffInfoEnList = staffInfoRepo.findAll();
-		List<StaffInfo> staffDetailList = staffInfoEnList.stream().map(userEn -> staffMapper.EnToDTO(userEn))
-				.collect(Collectors.toList());
-		return staffDetailList;
-	}
-
-	public List<StudentInfo> getAllStudentDetials() {
-		List<StudentInfoEn> studentInfoEnList = studentInfoRepo.findAll();
-		List<StudentInfo> studentDetailList = studentInfoEnList.stream()
-				.map(userEn -> studentsMapper.EnToDTO(userEn)).collect(Collectors.toList());
-		return studentDetailList;
-	}
-
-	private StaffInfoEn mapStaffInfoDTO2En(StaffInfo staffInfo) {
-		StaffInfoEn staffInfoEn = staffInfoRepo.findByUserEmail(staffInfo.getUserEmail()).get();
-		staffMapper.updateEnFromDTO(staffInfo,staffInfoEn);
-		customStaffMapper.updateEnFromDTO(staffInfo,staffInfoEn);
-		return staffInfoEn;
-	}
-
-	private StudentInfoEn mapStudentInfoDTO2En(StudentInfo studentInfo) {
-		StudentInfoEn studentInfoEn = studentInfoRepo.findByUserEmail(studentInfo.getUserEmail()).get();
-		studentsMapper.updateEnFromDTO(studentInfo,studentInfoEn);
-		customStudentMapper.updateEnFromDTO(studentInfo,studentInfoEn);
-		return studentInfoEn;
-	}
-
-	private GuardianInfoEn mapGuardianInfoDTO2En(GuardianInfo guardianInfo, int userID) {
-		GuardianInfoEn guardianInfoEn = guardianInfoRepo.findByUserEmail(guardianInfo.getUserEmail()).get();
-		guardianMapper.updateEnFromDTO(guardianInfo,guardianInfoEn);
-		customGuardianMapper.updateEnFromDTO(guardianInfo,guardianInfoEn);
-		return guardianInfoEn;
-	}
 
 }

@@ -16,18 +16,18 @@ import org.mapstruct.Named;
 public interface StudentsMapper {
 
 
-    @Mapping(source = "dob", target = "dob", dateFormat = "dd.MM.yyyy")
-    @Mapping(source = "inDate", target = "inDate", dateFormat = "dd.MM.yyyy")
-    @Mapping(source = "outDate", target = "outDate", dateFormat = "dd.MM.yyyy")
+    @Mapping(source = "dob", target = "dob", dateFormat = "dd-MMM-yyyy")
+    @Mapping(source = "inDate", target = "inDate", dateFormat = "dd-MMM-yyyy")
+    @Mapping(source = "outDate", target = "outDate", dateFormat = "dd-MMM-yyyy")
     @Mapping(source = "primaryAddress.country", target = "primaryAddress.country", qualifiedByName = "CVTOCountry")
     @Mapping(source = "pguardian", target = "primGuardianEmail", qualifiedByName = "UserToEmail")
     @Mapping(source = "sguardian", target = "secnGuardianEmail", qualifiedByName = "UserToEmail")
     StudentInfo EnToDTO(StudentInfoEn studentInfoEn);
 
 
-    @Mapping(source = "dob", target = "dob", dateFormat = "dd.MM.yyyy")
-    @Mapping(source = "inDate", target = "inDate", dateFormat = "dd.MM.yyyy")
-    @Mapping(source = "outDate", target = "outDate", dateFormat = "dd.MM.yyyy")
+    @Mapping(source = "dob", target = "dob", dateFormat = "dd-MMM-yyyy")
+    @Mapping(source = "inDate", target = "inDate", dateFormat = "dd-MMM-yyyy")
+    @Mapping(source = "outDate", target = "outDate", dateFormat = "dd-MMM-yyyy")
     @Mapping(target = "userID", ignore = true)
     @Mapping(target = "primaryAddress.country", ignore = true)
     @Mapping(target = "pguardian", ignore = true)

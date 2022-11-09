@@ -29,4 +29,5 @@ public class StaffInfo extends UserInfo{
 		// TODO Auto-generated method stub
 		return AppConstants.USERTYPE_STAFF;
 	}
+
 }
