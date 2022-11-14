@@ -30,6 +30,7 @@ import com.srivn.works.smaster.smasterhome.repo.users.StudentInfoRepo;
 import com.srivn.works.smaster.smasterhome.repo.users.UserInfoRepo;
 import com.srivn.works.smaster.smasterhome.repo.util.ClsnValRepo;
 import com.srivn.works.smaster.smasterhome.utils.AppConstants;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UsersService {
@@ -101,6 +102,4 @@ public class UsersService {
 				.collect(Collectors.toList());
 		return userInfoList;
 	}
-
-
 }

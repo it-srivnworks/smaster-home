@@ -1,5 +1,6 @@
 package com.srivn.works.smaster.smasterhome.controls;
 
+import com.srivn.works.smaster.smasterhome.model.users.UserInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.srivn.works.smaster.smasterhome.model.users.GuardianInfo;
 import com.srivn.works.smaster.smasterhome.model.users.StaffInfo;
 import com.srivn.works.smaster.smasterhome.model.users.StudentInfo;
 import com.srivn.works.smaster.smasterhome.services.UsersService;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("users")
@@ -39,7 +41,5 @@ public class UsersControl {
 	public ResponseEntity<?> getAllUserInfo(int userType) {
 		return new ResponseEntity<>(usersService.getAllUserInfo(userType), HttpStatus.OK);
 	}
-	
-
 
 }

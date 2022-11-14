@@ -36,12 +36,14 @@ public class UserExceptionHandler{
 		
 	} 
 	
-	@ExceptionHandler(value = {BadRequestException.class})
+	@ExceptionHandler(value = {BadRequestException.class,DataUpdateException.class})
 	public ResponseEntity<ExObject> handleBRDEx(BadRequestException ex){
 		ExObject exObj = new ExObject();
 		exObj.setStatusCode(HttpStatus.BAD_REQUEST.value());
 		exObj.setMessage(ex.getMessage());
 		return new ResponseEntity<ExObject>(exObj,HttpStatus.BAD_REQUEST);
 		
-	} 
+	}
+
+
 }

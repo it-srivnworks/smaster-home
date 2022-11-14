@@ -16,12 +16,14 @@ import javax.persistence.Table;
 import com.srivn.works.smaster.smasterhome.repo.entity.util.ClsnValEn;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "USERPICTURES")
 public class UserPicturesEn {
 
@@ -30,16 +32,15 @@ public class UserPicturesEn {
     @Column(name = "picID")
     private long id;
 
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	private byte[] profilePic;
+	@Column(name = "filePath")
+	private String filePath;
 
 	@Column(name = "active")
 	private int active;
 
-	public UserPicturesEn(byte[] profilePic, int active) {
+	public UserPicturesEn(String filePath, int active) {
 		super();
-		this.profilePic = profilePic;
+		this.filePath = filePath;
 		this.active = active;
 	}
 

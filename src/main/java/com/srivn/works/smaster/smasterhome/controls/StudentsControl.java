@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("users/students")
@@ -27,6 +28,17 @@ public class StudentsControl {
         return new ResponseEntity<>(studentsService.updateGuardianData(guardianInfo), HttpStatus.OK);
     }
 
+    @PostMapping("/uploadProfilePic")
+    public ResponseEntity<?> uploadProfilePic(@RequestParam String userEmail, @RequestParam("file") MultipartFile file) {
+        if (!file.isEmpty()) {
+            studentsService.uploadProfilePic(userEmail, file);
+        } else {
+            return new ResponseEntity<>("Please select a file to upload", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Done", HttpStatus.OK);
+    }
+
+
     @GetMapping(value = "/getAllStudentDetials", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAllStudentDetials() {
         return new ResponseEntity<>(studentsService.getAllStudentDetials(), HttpStatus.OK);
@@ -37,4 +49,11 @@ public class StudentsControl {
         Thread.sleep(4000);
         return new ResponseEntity<>(studentsService.getStudentDetials(userEmail), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/getProfilePic", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_PNG_VALUE})
+    public ResponseEntity<?> getProfilePic(@RequestParam String userEmail) {
+        byte[] bytes = studentsService.getProfilePic(userEmail);
+        return new ResponseEntity<>(bytes, HttpStatus.OK);
+    }
+
 }
