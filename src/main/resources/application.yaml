@@ -1,0 +1,33 @@
+server:
+  servlet:
+    context-path: /smaster-home
+    multipart:
+      enabled: true
+      max-file-size: 1GB
+      max-request-size: 1GB
+spring:
+  profiles:
+    activate: "dev"
+  devtools:
+    restart:
+      enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/smaster
+    username: smaster
+    password: smaster
+  jpa:
+    hibernate:
+      ddl-auto: update
+      enable_lazy_load_no_trans : true
+      event:
+          merge:
+            entity_copy_observer: allow
+    show-sql: true  
+    properties:
+      hibernate.format_sql: true
+jwt:
+  secret : smaster
+smaster:
+  home:
+    profilepicpath: C:\HiteshWork\SRIVN_WORKS\Dev\testdata\
+    profPicFileSize: 2097152
