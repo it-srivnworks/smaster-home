@@ -1,4 +1,5 @@
 server:
+  port : 8091
   servlet:
     context-path: /smaster-home
     multipart:
@@ -6,15 +7,11 @@ server:
       max-file-size: 1GB
       max-request-size: 1GB
 spring:
-  profiles:
-    activate: "dev"
-  devtools:
-    restart:
-      enabled: true
   datasource:
-    url: jdbc:mysql://localhost:3306/smaster
-    username: smaster
-    password: smaster
+    url: jdbc:h2:file:./data/demo
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: update
