@@ -5,7 +5,7 @@ metadata:
     run: smaster-home-app
   name: smaster-home-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       run: smaster-home-app
