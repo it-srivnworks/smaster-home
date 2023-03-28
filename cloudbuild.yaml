@@ -6,15 +6,11 @@ steps:
 # Docker Push
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/srivnworks-sm-project/it-srivnworks/smaster-home:v01']
-options:
-  logging: CLOUD_LOGGING_ONLY
-  
+
 # Set Env
 - name: 'gcr.io/cloud-builders/kubectl'
   args: ['apply', '-f', 'k8s/']
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=smaster-home-cluster'
+  env: ['CLOUDSDK_COMPUTE_ZONE=europe-west1-b','CLOUDSDK_CONTAINER_CLUSTER=smaster-home-cluster']
   
 - name: 'gcr.io/cloud-builders/kubectl'
   args: [
@@ -24,6 +20,7 @@ options:
    'smaster-home-app', 
    'smaster-home-app=gcr.io/srivnworks-sm-project/it-srivnworks/smaster-home:v01'
    ]
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=smaster-home-cluster'
+  env: ['CLOUDSDK_COMPUTE_ZONE=europe-west1-b','CLOUDSDK_CONTAINER_CLUSTER=smaster-home-cluster']
+   
+options:
+    logging: CLOUD_LOGGING_ONLY   
