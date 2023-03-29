@@ -7,6 +7,39 @@ server:
       max-file-size: 1GB
       max-request-size: 1GB
 spring:
+  profiles:
+    active: test
+---
+spring:
+  config:
+    activate:
+      on-profile: localdev
+  datasource:
+    url: jdbc:h2:file:./data/demo
+    username: sa
+    password: sa
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+      enable_lazy_load_no_trans : true
+      event:
+          merge:
+            entity_copy_observer: allow
+    show-sql: true  
+    properties:
+      hibernate.format_sql: true
+jwt:
+  secret : smaster
+smaster:
+  home:
+    profilepicpath: C:\HiteshWork\SRIVN_WORKS\Dev\testdata\
+    profPicFileSize: 2097152
+---
+spring:
+  config:
+    activate:
+      on-profile: test    
   datasource:
     url: jdbc:h2:file:./data/demo
     username: sa
