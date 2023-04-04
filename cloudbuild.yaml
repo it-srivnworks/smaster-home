@@ -1,0 +1,47 @@
+steps:
+# Docker Build
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/srivnworks-sm-project/it-srivnworks/smaster-home:v01','-f','Dockerfile', '.']
+
+# Docker Push
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/srivnworks-sm-project/it-srivnworks/smaster-home:v01']
+
+# Set Env
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['apply', '-f', 'k8s/']
+  env: ['CLOUDSDK_COMPUTE_ZONE=europe-west1-b','CLOUDSDK_CONTAINER_CLUSTER=smaster-home-cluster']
+
+# Update Image to deployment  
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: [
+   'set', 
+   'image', 
+   'deployment', 
+   'smaster-home-app', 
+   'smaster-home-app=gcr.io/srivnworks-sm-project/it-srivnworks/smaster-home:v01'
+   ]
+  env: ['CLOUDSDK_COMPUTE_ZONE=europe-west1-b','CLOUDSDK_CONTAINER_CLUSTER=smaster-home-cluster']
+# Get Secret from Secret Manager and Push
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker login --username=$$USERNAME --password=$$PASSWORD']
+  secretEnv: ['USERNAME', 'PASSWORD']
+# Push to Docker Hub
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker build -t $$USERNAME/smaster-home:v01 .']
+  secretEnv: ['USERNAME']
+# Push to Docker Hub
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker push $$USERNAME/smaster-home:v01']
+  secretEnv: ['USERNAME']
+availableSecrets:
+   secretManager:
+   - versionName: projects/srivnworks-sm-project/secrets/docker-password/versions/1
+     env: 'PASSWORD'
+   - versionName: projects/srivnworks-sm-project/secrets/docker-username/versions/1
+     env: 'USERNAME'   
+options:
+    logging: CLOUD_LOGGING_ONLY   

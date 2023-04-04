@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: smaster-home-app
+  name: smaster-home-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: smaster-home-app
+  template:
+    metadata:
+      labels:
+        run: smaster-home-app
+    spec:
+      containers:
+      - image: gcr.io/srivnworks-sm-project/it-srivnworks/smaster-home:v01
+        name: smaster-home-app
+        ports:
+        - containerPort: 8091
