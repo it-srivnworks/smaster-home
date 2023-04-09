@@ -15,9 +15,9 @@ spring:
     activate:
       on-profile: localdev
   datasource:
-    url: jdbc:h2:file:./data/demo
-    username: sa
-    password: sa
+    url: jdbc:mysql://localhost:3306/smasterhome
+    username: smhomeapp
+    password: smhomeapp
     driverClassName: org.h2.Driver
   jpa:
     hibernate:
@@ -45,6 +45,9 @@ spring:
     username: sa
     password: sa
     driverClassName: org.h2.Driver
+  h2:
+  console:
+  enabled: true
   jpa:
     hibernate:
       ddl-auto: update
